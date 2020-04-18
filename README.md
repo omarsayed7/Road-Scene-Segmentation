@@ -6,16 +6,11 @@ These two folders represent two networks that are used in Semantic Segmentation 
 
 ## Pretrained Models
 
-+ For FCHarDNet: https://ping-chao.com/hardnet/hardnet70_cityscapes_model.pkl
-+ For ESPNetV2: Present inside https://github.com/omarsayed7/Road-Scene-Segmentation/tree/master/ESPNetv2/model/segmentation/model_zoo/espnetv2
-
-## Pretrained Model Placement
-
-+ For FCHarDNet: Place "hardnet70_cityspaces_model.pkl" inside the FCHarDNet folder so that it is in the same directory as ["hardnet.py"](https://github.com/omarsayed7/Road-Scene-Segmentation/blob/master/FCHarDNet/hardnet.py)
-+ For ESPNetV2: Already present.
++ [FCHarDNet](https://ping-chao.com/hardnet/hardnet70_cityscapes_model.pkl)
++ [ESPNetV2](https://github.com/omarsayed7/Road-Scene-Segmentation/tree/master/ESPNetv2/model/segmentation/model_zoo/espnetv2)
 
 ## Usage
-
++ For FCHarDNet: Create a folder named "pretrained" in the same directory as ["hardnet.py"](https://github.com/omarsayed7/Road-Scene-Segmentation/blob/master/FCHarDNet/hardnet.py) and place "hardnet70_cityspaces_model.pkl" inside 
 - FCHarDNet: While opening [this](https://github.com/omarsayed7/Road-Scene-Segmentation/tree/master/FCHarDNet) path, run:
 ```
 python3 hardnet.py
@@ -25,3 +20,9 @@ python3 hardnet.py
 python3 espnet_v2.py
 ```
 ## Results
++ [Sample image](https://github.com/omarsayed7/Road-Scene-Segmentation/tree/master/ESPNetv2/segmentation_results)
++ [FCHarDNet](https://drive.google.com/open?id=1OYWKakLbSPzsFdDBKI7RewiCpJ1hOw-j)
++ [ESPNetV2](https://github.com/omarsayed7/Road-Scene-Segmentation/tree/master/ESPNetv2/segmentation_results)
+
+## Readme is still under development
+
