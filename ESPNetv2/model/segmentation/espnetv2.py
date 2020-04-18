@@ -3,7 +3,6 @@ __author__ = "Sachin Mehta"
 __maintainer__ = "Sachin Mehta"
 # ============================================
 import sys
-sys.path.append('F:/My_Stuff/GP/Last Mile Delivery/Semantic Segmentation/EdgeNets - Copy')
 import torch
 from torch.nn import init
 from nn_layers.espnet_utils import *

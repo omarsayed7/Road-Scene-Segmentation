@@ -1,13 +1,10 @@
 import torch
 import sys
-sys.path.append('F:/My_Stuff/GP/Last Mile Delivery/Semantic Segmentation/EdgeNets - Copy')
 import os
 from PIL import Image
 import glob
 from torchvision.transforms import functional as F
 from tqdm import tqdm
-import cv2
-import numpy as np
 from argparse import ArgumentParser
 from color_map import VOCColormap
 
@@ -52,7 +49,7 @@ def run_segmentation(model, image_list, device):
 
             # save the segmentation mask
             print(imgName)
-            name = str(c)+'mask.png'
+            name = 'segmentation_results/'+str(c)+'mask.png'
             c += 1
             #name = imgName.split('/')[-1]
             #img_extn = imgName.split('.')[-1]
@@ -60,7 +57,7 @@ def run_segmentation(model, image_list, device):
             print(name)
             blended = Image.blend(img_clone, img_out, alpha=0.7)
             blended.save(name)
-            img_out.save(name)
+            #img_out.save(name)
 
 
 def main(args):
@@ -84,9 +81,6 @@ def main(args):
         print("ERRORRRR")
 
     model = model.cuda()
-    #input = torch.Tensor(1, 3, 1024, 512)
-    #out = model(input.cuda())
-    #print(out.shape)
     run_segmentation(model, image_list, device='cuda')
 
 if __name__ == '__main__':
