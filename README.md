@@ -20,7 +20,7 @@ python3 hardnet.py
 python3 espnet_v2.py
 ```
 ## Results
-+ [Sample image](https://github.com/omarsayed7/Road-Scene-Segmentation/tree/master/ESPNetv2/segmentation_results)
++ [Sample image](https://github.com/omarsayed7/Road-Scene-Segmentation/tree/master/ESPNetv2/sample_images)
 + [FCHarDNet](https://drive.google.com/open?id=1OYWKakLbSPzsFdDBKI7RewiCpJ1hOw-j)
 + [ESPNetV2](https://github.com/omarsayed7/Road-Scene-Segmentation/tree/master/ESPNetv2/segmentation_results)
 
