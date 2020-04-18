@@ -6,6 +6,8 @@ from PIL import Image
 import glob
 from torchvision.transforms import functional as F
 from tqdm import tqdm
+import cv2
+import numpy as np
 from argparse import ArgumentParser
 
 
@@ -24,13 +26,16 @@ def main(args):
         print('Weight loaded successfully')
     else:
         print("ERRORRRR")
+    #model = model.cuda()
+    #input = torch.Tensor(1, 3, 1024, 512)
+    #out = model(input.cuda())
+    #print(out.shape)
+    x,y = process_img("data/000000_10.png",[512,1024],'cuda',model.cuda())
+    print(y.shape)
+    cv2.imshow("image2d",x)
+    cv2.imshow("image", y)
+    cv2.waitKey(0)
 
-    num_gpus = torch.cuda.device_count()
-    #device = 'cuda0'
-    model = model.cuda()
-    input = torch.Tensor(1, 3, 1024, 512)
-    out = model(input.cuda())
-    print(out.shape)
 
 
 if __name__ == '__main__':
