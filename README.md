@@ -2,7 +2,7 @@
 These two folders represent two networks that are used in Semantic Segmentation in road sences.
 
 1- [FCHarDNet](https://github.com/PingoLH/FCHarDNet)
-2- [ESPNetV2](https://github.com/sacmehta/EdgeNets)
++ 2- [ESPNetV2](https://github.com/sacmehta/EdgeNets)
 
 ## Weights
 
