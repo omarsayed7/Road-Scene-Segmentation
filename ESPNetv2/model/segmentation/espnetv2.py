@@ -6,7 +6,6 @@ import sys
 sys.path.append('F:/My_Stuff/GP/Last Mile Delivery/Semantic Segmentation/EdgeNets - Copy')
 import torch
 from torch.nn import init
-
 from nn_layers.espnet_utils import *
 from nn_layers.efficient_pyramid_pool import EfficientPyrPool
 from nn_layers.efficient_pt import EfficientPWConv
@@ -186,6 +185,9 @@ def espnetv2_seg(args):
             exit()
         basenet_dict.update(overlap_dict)
         model.base_net.load_state_dict(basenet_dict)
+    else:
+        pass
+        #print("ERROR")
     return model
 
 if __name__ == "__main__":
@@ -197,13 +199,11 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Testing')
     args = parser.parse_args()
 
-    args.classes = 19
+    args.classes = 21
     args.s = 2.0
     args.weights='../classification/model_zoo/espnetv2/espnetv2_s_2.0_imagenet_224x224.pth'
-    args.dataset='city'
+    args.dataset='pascal'
 
     input = torch.Tensor(1, 3, 384, 384)
     model = espnetv2_seg(args)
-    from utilities.utils import compute_flops, model_parameters
     out = model(input)
-    print(out.size())

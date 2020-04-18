@@ -91,8 +91,9 @@ def process_img(img_path, size, device, model):
     ]
 
     label_colours = dict(zip(range(19), colors))
+    print('FUCK:',outputs.shape)
     pred = np.squeeze(outputs.data.max(1)[1].cpu().numpy(), axis=0)
-    print(pred)
+
     decoded = decode_segmap(temp=pred,label_colours=label_colours)
 
     return img_resized, decoded
