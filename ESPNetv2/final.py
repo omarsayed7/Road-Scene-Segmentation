@@ -9,9 +9,65 @@ from tqdm import tqdm
 import cv2
 import numpy as np
 from argparse import ArgumentParser
+from color_map import VOCColormap
+
+
+MEAN = [0.485, 0.456, 0.406]
+STD = [0.229, 0.224, 0.225]
+
+COLOR_MAP = VOCColormap().get_color_map()
+IMAGE_EXTENSIONS = ['.jpg', '.png', '.jpeg']
+
+def data_transform(img, im_size):
+    img = img.resize(im_size, Image.BILINEAR)
+    img = F.to_tensor(img)  # convert to tensor (values between 0 and 1)
+    img = F.normalize(img, MEAN, STD)  # normalize the tensor
+    return img
+
+def run_segmentation(model, image_list, device):
+    im_size = tuple([1024,512])
+    model.eval()
+    with torch.no_grad():
+        c = 0
+        for imgName in tqdm(image_list):
+            img = Image.open(imgName).convert('RGB')
+            img_clone = img.copy()
+            w, h = img.size
+
+            img = data_transform(img, im_size)
+            img = img.unsqueeze(0)  # add a batch dimension
+            img = img.to(device)
+            img_out = model(img)
+            img_out = img_out.squeeze(0)  # remove the batch dimension
+            img_out = img_out.max(0)[1].byte()  # get the label map
+            img_out = img_out.to(device='cpu').numpy()
+
+            img_out = Image.fromarray(img_out)
+            # resize to original size
+            img_out = img_out.resize((w, h), Image.NEAREST)
+
+            # pascal dataset accepts colored segmentations
+            img_out.putpalette(COLOR_MAP)
+            img_out = img_out.convert('RGB')
+
+            # save the segmentation mask
+            print(imgName)
+            name = str(c)+'mask.png'
+            c += 1
+            #name = imgName.split('/')[-1]
+            #img_extn = imgName.split('.')[-1]
+            #name = '{}/{}'.format(args.savedir, name.replace(img_extn, 'png'))
+            print(name)
+            blended = Image.blend(img_clone, img_out, alpha=0.7)
+            blended.save(name)
+            img_out.save(name)
 
 
 def main(args):
+
+    image_list = []
+    for extn in IMAGE_EXTENSIONS:
+        image_list = image_list +  glob.glob(args.data_path + os.sep + '*' + extn)
 
     if args.model == 'espnetv2':
         from model.segmentation.espnetv2 import espnetv2_seg
@@ -26,17 +82,12 @@ def main(args):
         print('Weight loaded successfully')
     else:
         print("ERRORRRR")
-    #model = model.cuda()
+
+    model = model.cuda()
     #input = torch.Tensor(1, 3, 1024, 512)
     #out = model(input.cuda())
     #print(out.shape)
-    x,y = process_img("data/000000_10.png",[512,1024],'cuda',model.cuda())
-    print(y.shape)
-    cv2.imshow("image2d",x)
-    cv2.imshow("image", y)
-    cv2.waitKey(0)
-
-
+    run_segmentation(model, image_list, device='cuda')
 
 if __name__ == '__main__':
     segmentation_datasets = ['pascal', 'city']
@@ -69,6 +120,11 @@ if __name__ == '__main__':
         assert model_key in model_weight_map.keys(), '{} does not exist'.format(model_key)
         assert dataset_key in model_weight_map[model_key].keys(), '{} does not exist'.format(dataset_key)
         args.weights_test = model_weight_map[model_key][dataset_key]['weights']
+
+    # set-up results path
+    args.savedir = 'segmentation_results/'
+    if not os.path.isdir(args.savedir):
+        os.makedirs(args.savedir)
 
     # This key is used to load the ImageNet weights while training. So, set to empty to avoid errors
     args.weights = ''
