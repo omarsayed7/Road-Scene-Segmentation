@@ -100,7 +100,7 @@ def process_img(img_path, size, device, model):
 
 
 device,model = init_model("pretrained/hardnet70_cityscapes_model.pkl")
-x,y = process_img("data/pic.png",[375,1242],device,model.cuda())
+x,y = process_img("data/000000_10.png",[375,1242],device,model.cuda())
 print(y.shape)
 #cv2.imshow("image2d",x)
 cv2.imshow("image", y)
