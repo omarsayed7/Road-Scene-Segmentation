@@ -1,9 +1,6 @@
 # Road Scene Segmentation
 These two folders represent two networks that are used in Semantic Segmentation in road sences.
 
-+ [FCHarDNet](https://github.com/PingoLH/FCHarDNet)
-+ [ESPNetV2](https://github.com/sacmehta/EdgeNets)
-
 ## Pretrained Models
 
 + [FCHarDNet](https://ping-chao.com/hardnet/hardnet70_cityscapes_model.pkl)
@@ -24,4 +21,4 @@ python3 espnet_v2.py
 + [FCHarDNet](https://drive.google.com/open?id=1OYWKakLbSPzsFdDBKI7RewiCpJ1hOw-j)
 + [ESPNetV2](https://github.com/omarsayed7/Road-Scene-Segmentation/tree/master/ESPNetv2/segmentation_results)
 
-Note: All the codes are forked from [FCHarDNet](https://www.google.com/search?channel=fs&client=ubuntu&q=hardnet+github) and [ESPNetv2](https://github.com/sacmehta/ESPNetv2)
+Note: All the codes are forked from [FCHarDNet](https://www.google.com/search?channel=fs&client=ubuntu&q=hardnet+github) and [ESPNetv2](https://github.com/sacmehta/EdgeNets)
